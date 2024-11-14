@@ -1,0 +1,32 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="product-app" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.example.optimistic.entity.ProductSales</class>
+        <class>com.example.pessimistic.entity.PessimisticProductLock</class>
+        <class>com.example.optimistic.entity.OptimisticProductLock</class>
+        <class>com.example.caching.entity.FirstLevelCacheProduct</class>
+        <class>com.example.caching.entity.SecondLevelCacheProduct</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="blackthorne"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <!-- Enable shared cache -->
+            <property name="eclipselink.cache.shared.default" value="true"/>
+            <!-- Enable specific caching for the entity -->
+            <property name="eclipselink.cache.shared.SecondLevelCacheProduct" value="true"/>
+            <!-- Set the cache type and size for better control -->
+            <property name="eclipselink.cache.type.default" value="WEAK"/>
+            <property name="eclipselink.cache.size.default" value="1000"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+
+
